@@ -40,7 +40,7 @@ io.on('connection', function(socket){
     });
 
   socket.on('msg', function(data){
-    
+  
     socket.emit('name');
     data.author = socket.user;
     socket.broadcast.emit('newMsg', data);

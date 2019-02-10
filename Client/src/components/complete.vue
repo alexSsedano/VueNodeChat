@@ -136,6 +136,7 @@
         
       },
       newUser: function(data){
+        //hola
         this.$notify({
           group: 'foo',
           title: data +' is conected.',
