@@ -24,16 +24,7 @@ export default {
   data() {
     return {
       participants: [
-        {
-          id: 'user1',
-          name: 'Matteo',
-          imageUrl: 'https://avatars3.githubusercontent.com/u/1915989?s=230&v=4'
-        },
-        {
-          id: 'user2',
-          name: 'Support',
-          imageUrl: 'https://avatars3.githubusercontent.com/u/37018832?s=200&v=4'
-        }
+      
       ], // the list of all the participant of the conversation. `name` is the user name, `id` is used to establish the author of a message, `imageUrl` is supposed to be the user avatar.
       titleImageUrl: 'https://a.slack-edge.com/66f9/img/avatars-teams/ava_0001-34.png',
       messageList: [
@@ -74,7 +65,10 @@ export default {
       newMsg: function(data){
         this.messageList = [ ...this.messageList, data ];
       },
-      newUserLog: function(data){
+      userLog: function(data){
+       this.participants = JSON.parse(data);
+      },
+      newUser: function(data){
           this.participants.push(
               {
                 id: data,
@@ -90,14 +84,14 @@ export default {
       if (text.length > 0) {
         this.newMessagesCount = this.isChatOpen ? this.newMessagesCount : this.newMessagesCount + 1;
        
-        this.onMessageWasSent({ author: '', type: 'text', data: { text } })
+        this.onMessageWasSent({ author: 'support', type: 'text', data: { text } })
       
     }
     },
     onMessageWasSent (message) {
       // called when the user sends a message
       this.messageList = [ ...this.messageList, message ]
-      
+      console.log("msg");
       this.$socket.emit('msg', message);
     },
     openChat () {

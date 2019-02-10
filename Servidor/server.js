@@ -22,6 +22,7 @@ next();
 });
 
 var notas= [];
+var users= [];
 app.use(express.static(__dirname + '/dist'));
 var server = app.listen(3000);
 var io = require('socket.io').listen(server);
@@ -32,16 +33,22 @@ var io = require('socket.io').listen(server);
 io.on('connection', function(socket){
   socket.emit('newNotes', JSON.stringify(notas) );
   console.log('a user connected');
-
+  socket.emit('userLog', JSON.stringify(users) );
   socket.on('registered', function(user){
     socket.user = user;
-    io.emit('newUser', user);
+    users.push(
+      {
+        id:user,
+        name: user,
+        imageUrl: 'https://i.kym-cdn.com/photos/images/original/000/744/400/8d2.jpg'
+    }
+    );
+    socket.broadcast.emit('newUser', user);
     socket.broadcast.emit('newUserLog', user);
     });
 
   socket.on('msg', function(data){
-  
-    socket.emit('name');
+    
     data.author = socket.user;
     socket.broadcast.emit('newMsg', data);
     console.log(data);
