@@ -65,6 +65,16 @@ export default {
       newMsg: function(data){
         this.messageList = [ ...this.messageList, data ];
       },
+      disconnected: function(data){
+        console.log(this.participants.length);
+         console.log(data);
+        for(let i = 0;i < this.participants.length ;i++){
+          if(this.participants[i].name == data){
+            
+            this.participants.splice(i,1);
+          }
+        }
+      },
       userLog: function(data){
        this.participants = JSON.parse(data);
       },
@@ -76,7 +86,7 @@ export default {
                 imageUrl: 'https://i.kym-cdn.com/photos/images/original/000/744/400/8d2.jpg'
             }
             )
-            console.log(participants);
+            
       }
   },
   methods: {

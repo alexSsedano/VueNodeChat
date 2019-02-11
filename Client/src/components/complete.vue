@@ -127,7 +127,16 @@
           group: 'foo',
           title: 'Note added.' 
         });
+        
       },
+      disconnected: function(data){
+        this.$notify({
+          group: 'foo',
+          title: data + ' has disconected.' 
+        });
+        
+      },
+      
       noteChange: function(mod){
         this.$notify({
           group: 'foo',

@@ -62,4 +62,18 @@ io.on('connection', function(socket){
   socket.on('Change', function(change){  
     io.emit('noteChange', change);
   });
+
+  socket.on('disconnect', function () {
+    io.emit('disconnected', socket.user);
+    console.log(users);
+     for(let i = 0;i < users.length ;i++){
+          if(users[i].name == socket.user){
+            
+            users.splice(i,1);
+          }
+        }
+    
+
+});
+
 });
